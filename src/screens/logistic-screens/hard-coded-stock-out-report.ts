@@ -98,9 +98,10 @@ export class HardCodedStockOutReport {
 
         const allOptions = [...this.firstScreenOptions,...this.secondScreenOptions];
 
-        if(ussdTextInput.length >= 2 && _.nth(ussdTextInput, -1) !== 'B' && _.nth(ussdTextInput, -1) !== 'N' && _.nth(ussdTextInput, -2) !== 'B' && _.nth(ussdTextInput, -2) !== 'N'){
+        if(ussdTextInput.length >= 2 && _.nth(ussdTextInput, -2) !== 'B' && _.nth(ussdTextInput, -2) !== 'N'){
             console.log('Value Saved');
             //ussdTextInput.push("B");
+
 
             const optionNumber = _.nth(ussdTextInput,-1);
 
@@ -122,7 +123,7 @@ export class HardCodedStockOutReport {
 
         const constExistingOption =  allOptions.find(i => i.optionNumber === currentInput);
 
-        if(constExistingOption !== undefined) return ussdResponseMessage(UssdHeader.CON, currentInput !== '9' ? `Is Stock Out For:\n${constExistingOption.option}\n1. For Yes\n2. For No` : `Please Enter a Comment`);
+        if(constExistingOption !== undefined) return ussdResponseMessage(UssdHeader.CON, currentInput !== '9' ? `Is Stock Out For:\n${constExistingOption.option}\nYes\nNo` : `Please Enter a Comment`);
 
         return this.firstScreenMessage; //ussdResponseMessage(UssdHeader.END, 'In Valid Option');
     }
