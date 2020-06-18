@@ -5,25 +5,25 @@ export class HardCodedStockReport {
     firstScreenOptions = [
         {
             optionNumber: '1',
-            option: '1. Apron Sleeved',
+            option: 'Apron Sleeved',
             qty: '0',
             comment: ''
         },
         {
             optionNumber: '2',
-            option: '2. Hand for Coveralls',
+            option: 'Hand for Coveralls',
             qty: '0',
             comment: ''
         },
         {
             optionNumber: '3',
-            option: '3. Gown, Protective',
+            option: 'Gown, Protective',
             qty: '0',
             comment: ''
         },
         {
             optionNumber: '4',
-            option: '4. Surgical Face Mask',
+            option: 'Surgical Face Mask',
             qty: '0',
             comment: ''
         }
@@ -31,25 +31,25 @@ export class HardCodedStockReport {
     secondScreenOptions = [
         {
             optionNumber: '5',
-            option: '5. Shoe Cover',
+            option: 'Shoe Cover',
             qty: '0',
             comment: ''
         },
         {
             optionNumber: '6',
-            option: '6. Swab and Viral Transport Medium',
+            option: 'Swab and Viral Transport Medium',
             qty: '0',
             comment: ''
         },
         {
             optionNumber: '7',
-            option: '7. Glove latex',
+            option: 'Glove latex',
             qty: '0',
             comment: ''
         },
         {
             optionNumber: '8',
-            option: '8. Respirator (FFP3, FFP2, N95)',
+            option: 'Respirator (FFP3, FFP2, N95)',
             qty: '0',
             comment: ''
         },
@@ -62,8 +62,8 @@ export class HardCodedStockReport {
         },
     ];
 
-    first = this.firstScreenOptions.map(message => `${message.option}\n`).join('');
-    second = this.secondScreenOptions.map(message => `${message.option}\n`).join('');
+    first = this.firstScreenOptions.map(message => `${message.optionNumber + '.' + message.option}\n`).join('');
+    second = this.secondScreenOptions.map(message => `${message.optionNumber + '.' + message.option}\n`).join('');
 
     firstScreenMessage = ussdResponseMessage(UssdHeader.CON, `Enter Stock Data For:\n${this.first}N for Next or E for Exit`);
     secondScreenMessage = ussdResponseMessage(UssdHeader.CON, `Enter Stock Data For:\n${this.second}B for Back or E for Exit`);

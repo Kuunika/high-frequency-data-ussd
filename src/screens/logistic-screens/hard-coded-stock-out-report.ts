@@ -62,8 +62,11 @@ export class HardCodedStockOutReport {
         },
     ];
 
-    firstScreenMessage = ussdResponseMessage(UssdHeader.CON, `Enter Stock Out For:\n${this.firstScreenOptions.map(message => message.optionNumber + '. ' + message.option + '\n')}N for Next or E for Exit`);
-    secondScreenMessage = ussdResponseMessage(UssdHeader.CON, `Enter Stock Out For:\n${this.secondScreenOptions.map(message => message.optionNumber + '. ' + message.option + '\n')}B for Back or E for Exit`);
+    first = this.firstScreenOptions.map(message => `${message.optionNumber + '.' + message.option}\n`).join('');
+    second = this.secondScreenOptions.map(message => `${message.optionNumber + '.' + message.option}\n`).join('');
+
+    firstScreenMessage = ussdResponseMessage(UssdHeader.CON, `Enter Stock Out For:\n${this.first}N for Next or E for Exit`);
+    secondScreenMessage = ussdResponseMessage(UssdHeader.CON, `Enter Stock Out For:\n${this.second}B for Back or E for Exit`);
 
     display(ussdTextInput: string[]) {
         
@@ -95,7 +98,7 @@ export class HardCodedStockOutReport {
 
         const allOptions = [...this.firstScreenOptions,...this.secondScreenOptions];
 
-        if(ussdTextInput.length >= 2 && _.nth(ussdTextInput, -1) !== 'B' && _.nth(ussdTextInput, -2) !== 'B'){
+        if(ussdTextInput.length >= 2 && _.nth(ussdTextInput, -1) !== 'B' || 'N' && _.nth(ussdTextInput, -2) !== 'B' || 'N'){
             console.log('Value Saved');
             //ussdTextInput.push("B");
 
