@@ -14,7 +14,7 @@ export class InitialDialogScreen extends BoundedDialogScreen {
 
   setScreenOptionText() {
     this.screenOptionsText =
-      ussdResponseMessage(UssdHeader.CON, '1. Enter Stock Report \n2. Enter Report Stock Out');
+      ussdResponseMessage(UssdHeader.CON, 'Hello John of Kamuzu Central\n1. Enter Stock Report \n2. Enter Report Stock Out');
   }
 
   setSelectableOption() {
