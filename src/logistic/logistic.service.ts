@@ -7,10 +7,11 @@ import { UssdHeader, ussdResponseMessage, parseTextFromUssd} from '../common/hel
 @Injectable()
 export class LogisticService {
 
-    constructor(private readonly initialDialogScreen: InitialDialogScreen){}
+    constructor(){}
 
     request(ussdDto: UssdDto){
+        const initialDialogScreen = new InitialDialogScreen()
         const parsedUssdRequestText = parseTextFromUssd(ussdDto.text);
-        return this.initialDialogScreen.display(parsedUssdRequestText);
+        return initialDialogScreen.display(parsedUssdRequestText);
     }
 }

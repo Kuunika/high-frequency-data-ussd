@@ -4,7 +4,7 @@ export enum UssdHeader {
 }
 
 export function parseTextFromUssd(ussdText = ''): string[] {
-    const parsedTextFromUSSD = ussdText.split('*');
+    const parsedTextFromUSSD = ussdText.split("*");
     return parsedTextFromUSSD.length === 1 && parsedTextFromUSSD[0] === '' ? new Array(0) : parsedTextFromUSSD;
 }
 

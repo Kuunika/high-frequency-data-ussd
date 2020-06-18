@@ -7,6 +7,6 @@ import { StockOutScreen } from 'src/screens/logistic-screens/stock-out.screen';
 
 @Module({
   controllers: [LogisticController],
-  providers: [LogisticService, InitialDialogScreen, StockReportScreen, StockOutScreen]
+  providers: [LogisticService]
 })
 export class LogisticModule {}

@@ -13,6 +13,7 @@ import { Facility, FacilitySchema } from './common/schema/facility.schema';
 import { SurveillanceModule } from './surveillance/surveillance.module';
 import { LogisticModule } from './logistic/logistic.module';
 import * as dotenv from 'dotenv';
+import { HardCodedStockReport } from './screens/logistic-screens/hard-coded-stock-report';
 
 dotenv.config();
 
