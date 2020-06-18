@@ -11,7 +11,7 @@ export class StockOutScreen extends UnboundedDialogScreen {
 
         this.dialogScreenTexts = [
             ussdResponseMessage(UssdHeader.CON, '1. Is Stock Apron, Sleeved, Disposable Out Of Stock?\n\nEnter:\n1. For Yes\n2. For No'),
-            ussdResponseMessage(UssdHeader.CON, '2. Is Coveralls Out Of Stock?\n\nEnter:\n1. For Yes\n\2. For No'),
+            ussdResponseMessage(UssdHeader.CON, '2. Is Coveralls Out Of Stock?\n\nEnter:\n1. For Yes\n2. For No'),
             ussdResponseMessage(UssdHeader.CON, '3. Is Gown, Protective, Disposable Out Of Stock?\n\nEnter:\n1. For Yes\n2. For No'),
             ussdResponseMessage(UssdHeader.CON, '4. Is Surgical Face Mask, 3-ply, Disposable Out Of Stock?\n\nEnter:\n1. For Yes\n2. For No'),
             ussdResponseMessage(UssdHeader.CON, '5. Is Shoe Cover, Disposable Out Of Stock?\n\nEnter:\n1. For Yes\n2. For No'),
