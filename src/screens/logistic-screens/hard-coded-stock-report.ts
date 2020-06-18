@@ -5,7 +5,7 @@ export class HardCodedStockReport {
     firstScreenOptions = [
         {
             optionNumber: '1',
-            option: '1. Apron, Sleeved',
+            option: '1. Apron Sleeved',
             qty: '0',
             comment: ''
         },
@@ -62,14 +62,13 @@ export class HardCodedStockReport {
         },
     ];
 
-    first = this.firstScreenOptions.map(message => message.option + '\n');
-    second = this.secondScreenOptions.map(message => message.option + '\n');
+    first = this.firstScreenOptions.map(message => `${message.option}\n`).join('');
+    second = this.secondScreenOptions.map(message => `${message.option}\n`).join('');
 
     firstScreenMessage = ussdResponseMessage(UssdHeader.CON, `Enter Stock Data For:\n${this.first}N for Next or E for Exit`);
     secondScreenMessage = ussdResponseMessage(UssdHeader.CON, `Enter Stock Data For:\n${this.second}B for Back or E for Exit`);
 
     display(ussdTextInput: string[]) {
-        
         return this.createScreen(ussdTextInput);
 
     }
