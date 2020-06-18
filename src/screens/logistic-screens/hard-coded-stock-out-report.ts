@@ -124,7 +124,7 @@ export class HardCodedStockOutReport {
 
         if(constExistingOption !== undefined) return ussdResponseMessage(UssdHeader.CON, currentInput !== '9' ? `Is Stock Out For:\n${constExistingOption.option}\n1. For Yes\n2. For No` : `Please Enter a Comment`);
 
-        return ussdResponseMessage(UssdHeader.END, 'In Valid Option');
+        return this.firstScreenMessage; //ussdResponseMessage(UssdHeader.END, 'In Valid Option');
     }
 
 }
