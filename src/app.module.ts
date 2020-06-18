@@ -12,12 +12,15 @@ import {
 import { Facility, FacilitySchema } from './common/schema/facility.schema';
 import { SurveillanceModule } from './surveillance/surveillance.module';
 import { LogisticModule } from './logistic/logistic.module';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 
 @Module({
   imports: [
     AggregateModule,
     MongooseModule.forRoot(
-      'mongodb://localhost/High-Frequency-Data-Collection-Strapi',
+      process.env.MONGODB,
     ),
     MongooseModule.forFeature([
       { name: PermittedUser.name, schema: PermittedUserSchema },
