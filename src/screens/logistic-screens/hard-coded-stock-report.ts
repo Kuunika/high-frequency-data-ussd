@@ -97,7 +97,7 @@ export class HardCodedStockReport {
 
         const allOptions = [...this.firstScreenOptions,...this.secondScreenOptions];
 
-        if(ussdTextInput.length >= 2 && _.nth(ussdTextInput, -1) !== 'B' && _.nth(ussdTextInput, -2) !== 'B'){
+        if(ussdTextInput.length >= 2 && _.nth(ussdTextInput, -1) !== 'B' && _.nth(ussdTextInput, -1) !== 'N' && _.nth(ussdTextInput, -2) !== 'B' && _.nth(ussdTextInput, -2) !== 'N'){
             console.log('Value Saved');
             //ussdTextInput.push("B");
 
