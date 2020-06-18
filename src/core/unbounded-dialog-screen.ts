@@ -1,16 +1,16 @@
 import { BaseDialogScreen } from "./base-dialog-screen";
 
 export abstract class UnboundedDialogScreen extends BaseDialogScreen {
-    dialogScreenTexts: string[];
+    dialogScreenTexts = [];
     answers = [];
     
     postScreen = '';
 
-    setPostScreen(): void | Promise<void>{}
-    setDialogScreenTexts(): void | Promise<void>{}
+    setPostScreen(): void | Promise<void> {}
+    setDialogScreenTexts(): void | Promise<void> {}
 
     display(ussdTextInput?: string[]){
-        this.setDialogScreenTexts();
+        console.log(ussdTextInput);
         
         // Returns error message string if dialogScreenText is eq to null
 
@@ -19,9 +19,9 @@ export abstract class UnboundedDialogScreen extends BaseDialogScreen {
     }
 
     // Very tricky the more dynamic it gets
-    enterDialogScreenText(ussdTextInput?: string[]): string{
+    enterDialogScreenText(ussdTextInput: string[]): string{
         //if ussdTextInput is empty return first question
-        if(ussdTextInput === undefined) return this.dialogScreenTexts[0];
+        if(ussdTextInput === undefined || ussdTextInput.length === 0) return this.dialogScreenTexts[0];
 
         const currentQuestionIndex = ussdTextInput.length - 1;
 
@@ -33,6 +33,7 @@ export abstract class UnboundedDialogScreen extends BaseDialogScreen {
 
         //save result to database
         // TODO: need to add all of the correct answers in the array on each request
+        this.answers = [];
         this.answers.push(...ussdTextInput);
         console.log(this.answers);
 

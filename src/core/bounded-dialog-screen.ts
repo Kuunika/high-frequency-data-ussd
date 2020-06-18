@@ -16,7 +16,7 @@ export abstract class BoundedDialogScreen extends BaseDialogScreen {
         //TODO: Find Better Logic to see if an object is empty
         if(this.screenOptionsText === '') console.log('Dialog Screen Properties Undefined');
 
-        if(ussdTextInput === undefined) return this.screenOptionsText;
+        if(ussdTextInput === undefined || ussdTextInput.length === 0) return this.screenOptionsText;
 
         if (ussdTextInput) return this.selectScreenOptions(ussdTextInput);
 

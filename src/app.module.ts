@@ -10,6 +10,8 @@ import {
   PermittedUserSchema,
 } from './common/schema/permitted_user.schema';
 import { Facility, FacilitySchema } from './common/schema/facility.schema';
+import { SurveillanceModule } from './surveillance/surveillance.module';
+import { LogisticModule } from './logistic/logistic.module';
 
 @Module({
   imports: [
@@ -21,6 +23,8 @@ import { Facility, FacilitySchema } from './common/schema/facility.schema';
       { name: PermittedUser.name, schema: PermittedUserSchema },
       { name: Facility.name, schema: FacilitySchema },
     ]),
+    SurveillanceModule,
+    LogisticModule,
   ],
   controllers: [AppController],
   providers: [AppService, AuthenticatePhoneNumberService, PermittedUserService],
