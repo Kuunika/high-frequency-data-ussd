@@ -62,8 +62,11 @@ export class HardCodedStockReport {
         },
     ];
 
-    firstScreenMessage = ussdResponseMessage(UssdHeader.CON, `Enter Stock Data For:\n${this.firstScreenOptions.map(message => message.option + '\n')}N for Next or E for Exit`);
-    secondScreenMessage = ussdResponseMessage(UssdHeader.CON, `Enter Stock Data For:\n${this.secondScreenOptions.map(message => message.option + '\n')}B for Back or E for Exit`);
+    first = this.firstScreenOptions.map(message => message.option + '\n');
+    second = this.secondScreenOptions.map(message => message.option + '\n');
+
+    firstScreenMessage = ussdResponseMessage(UssdHeader.CON, `Enter Stock Data For:\n${this.first}N for Next or E for Exit`);
+    secondScreenMessage = ussdResponseMessage(UssdHeader.CON, `Enter Stock Data For:\n${this.second}B for Back or E for Exit`);
 
     display(ussdTextInput: string[]) {
         
