@@ -78,12 +78,12 @@ export class LogisticsDialogScreen extends BoundedDialogScreen {
     //initial call
     if (ussdRequest.ussdTextInput.length === 0) {
       const options = firstScreenOptions
-        .map(message => `Pharmacy\n${message.questionNumber + '.' + message.question}\n`)
+        .map(message => `${message.questionNumber + '.' + message.question}\n`)
         .join('');
 
       return ussdResponseMessage(
         UssdHeader.CON,
-        `${options}\nN to go to the next page`,
+        `Pharmacy\n${options}\nN to go to the next page`,
       );
     }
 
@@ -152,10 +152,10 @@ export class LogisticsDialogScreen extends BoundedDialogScreen {
     console.log(ussdRequest.ussdTextInput);
     if (ussdRequest.ussdTextInput.length === 0) {
       const options = secondScreenOptions
-        .map(message => `Pharmacy\n${message.questionNumber + '. ' + message.question}\n`)
+        .map(message => `${message.questionNumber + '. ' + message.question}\n`)
         .join('');
 
-      return ussdResponseMessage(UssdHeader.CON, `${options}\nB to go Back`);
+      return ussdResponseMessage(UssdHeader.CON, `Pharmacy\n${options}\nB to go Back`);
     }
     //Either this goes to page 2, the home screen or generates an error message.
     const userSelectedOption = ussdRequest.ussdTextInput.shift();
@@ -249,12 +249,12 @@ export class LogisticsDialogScreen extends BoundedDialogScreen {
     //initial call
     if (ussdRequest.ussdTextInput.length === 0) {
       const options = firstScreenOptions
-        .map(message => `Point of Care\n${message.questionNumber + '.' + message.question}\n`)
+        .map(message => `${message.questionNumber + '.' + message.question}\n`)
         .join('');
 
       return ussdResponseMessage(
         UssdHeader.CON,
-        `${options}\nN to go to the next page`,
+        `Point of Care\n${options}\nN to go to the next page`,
       );
     }
 
@@ -325,10 +325,10 @@ export class LogisticsDialogScreen extends BoundedDialogScreen {
     console.log(ussdRequest.ussdTextInput);
     if (ussdRequest.ussdTextInput.length === 0) {
       const options = secondScreenOptions
-        .map(message => `Point Of Care\n${message.questionNumber + '. ' + message.question}\n`)
+        .map(message => `${message.questionNumber + '. ' + message.question}\n`)
         .join('');
 
-      return ussdResponseMessage(UssdHeader.CON, `${options}\nB to go Back`);
+      return ussdResponseMessage(UssdHeader.CON, `Point of Care\n${options}\nB to go Back`);
     }
     //Either this goes to page 2, the home screen or generates an error message.
     const userSelectedOption = ussdRequest.ussdTextInput.shift();
@@ -389,12 +389,12 @@ export class LogisticsDialogScreen extends BoundedDialogScreen {
     //initial call
     if (ussdRequest.ussdTextInput.length === 0) {
       const options = firstScreenOptions
-        .map(message => `Facility Wide\n${message.questionNumber + '.' + message.question}\n`)
+        .map(message => `${message.questionNumber + '.' + message.question}\n`)
         .join('');
 
       return ussdResponseMessage(
         UssdHeader.CON,
-        `${options}\nN to go to the next page`,
+        `Facility Wide\n${options}\nN to go to the next page`,
       );
     }
 
@@ -456,10 +456,10 @@ export class LogisticsDialogScreen extends BoundedDialogScreen {
     console.log(ussdRequest.ussdTextInput);
     if (ussdRequest.ussdTextInput.length === 0) {
       const options = secondScreenOptions
-        .map(message => `Facility Wide\n${message.questionNumber + '. ' + message.question}\n`)
+        .map(message => `${message.questionNumber + '. ' + message.question}\n`)
         .join('');
 
-      return ussdResponseMessage(UssdHeader.CON, `${options}\nB to go Back`);
+      return ussdResponseMessage(UssdHeader.CON, `Facility Wide\n${options}\nB to go Back`);
     }
     //Either this goes to page 2, the home screen or generates an error message.
     const userSelectedOption = ussdRequest.ussdTextInput.shift();
