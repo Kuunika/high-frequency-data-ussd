@@ -78,7 +78,7 @@ export class LogisticsDialogScreen extends BoundedDialogScreen {
     //initial call
     if (ussdRequest.ussdTextInput.length === 0) {
       const options = firstScreenOptions
-        .map(message => `${message.questionNumber + '.' + message.question}\n`)
+        .map(message => `Pharmacy\n${message.questionNumber + '.' + message.question}\n`)
         .join('');
 
       return ussdResponseMessage(
@@ -152,7 +152,7 @@ export class LogisticsDialogScreen extends BoundedDialogScreen {
     console.log(ussdRequest.ussdTextInput);
     if (ussdRequest.ussdTextInput.length === 0) {
       const options = secondScreenOptions
-        .map(message => `${message.questionNumber + '. ' + message.question}\n`)
+        .map(message => `Pharmacy\n${message.questionNumber + '. ' + message.question}\n`)
         .join('');
 
       return ussdResponseMessage(UssdHeader.CON, `${options}\nB to go Back`);
@@ -249,7 +249,7 @@ export class LogisticsDialogScreen extends BoundedDialogScreen {
     //initial call
     if (ussdRequest.ussdTextInput.length === 0) {
       const options = firstScreenOptions
-        .map(message => `${message.questionNumber + '.' + message.question}\n`)
+        .map(message => `Point of Care\n${message.questionNumber + '.' + message.question}\n`)
         .join('');
 
       return ussdResponseMessage(
@@ -325,7 +325,7 @@ export class LogisticsDialogScreen extends BoundedDialogScreen {
     console.log(ussdRequest.ussdTextInput);
     if (ussdRequest.ussdTextInput.length === 0) {
       const options = secondScreenOptions
-        .map(message => `${message.questionNumber + '. ' + message.question}\n`)
+        .map(message => `Point Of Care\n${message.questionNumber + '. ' + message.question}\n`)
         .join('');
 
       return ussdResponseMessage(UssdHeader.CON, `${options}\nB to go Back`);
@@ -389,7 +389,7 @@ export class LogisticsDialogScreen extends BoundedDialogScreen {
     //initial call
     if (ussdRequest.ussdTextInput.length === 0) {
       const options = firstScreenOptions
-        .map(message => `${message.questionNumber + '.' + message.question}\n`)
+        .map(message => `Facility Wide\n${message.questionNumber + '.' + message.question}\n`)
         .join('');
 
       return ussdResponseMessage(
@@ -456,7 +456,7 @@ export class LogisticsDialogScreen extends BoundedDialogScreen {
     console.log(ussdRequest.ussdTextInput);
     if (ussdRequest.ussdTextInput.length === 0) {
       const options = secondScreenOptions
-        .map(message => `${message.questionNumber + '. ' + message.question}\n`)
+        .map(message => `Facility Wide\n${message.questionNumber + '. ' + message.question}\n`)
         .join('');
 
       return ussdResponseMessage(UssdHeader.CON, `${options}\nB to go Back`);
@@ -494,7 +494,7 @@ export class LogisticsDialogScreen extends BoundedDialogScreen {
     if (ussdRequest.ussdTextInput.length === 0) {
       return ussdResponseMessage(
         UssdHeader.CON,
-        `Have you confirmed that there is no stock of this product in the pharmacy?`,
+        `Have you confirmed that there is no stock of this product in the pharmacy?\nYes or No`,
       );
     }
 
@@ -504,7 +504,7 @@ export class LogisticsDialogScreen extends BoundedDialogScreen {
       //Does the thing
       return ussdResponseMessage(
         UssdHeader.CON,
-        `Have you confirmed that there is no stock of this product at the points of care?`,
+        `Have you confirmed that there is no stock of this product at the points of care?\nYes or No`,
       );
     }
 
