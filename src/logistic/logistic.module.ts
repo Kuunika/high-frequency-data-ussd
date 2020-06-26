@@ -1,12 +1,11 @@
 import { Module } from '@nestjs/common';
 import { LogisticController } from './logistic.controller';
 import { LogisticService } from './logistic.service';
-import { InitialDialogScreen } from 'src/screens/logistic-screens/initial-dialog.screen';
-import { StockReportScreen } from 'src/screens/logistic-screens/stock-report.screen';
-import { StockOutScreen } from 'src/screens/logistic-screens/stock-out.screen';
+import { LogisticsDialogScreen } from '../screens/new-logistics-screens/logistics.screen';
+import { QuestionService } from '../common/schema/question/question.service';
 
 @Module({
   controllers: [LogisticController],
-  providers: [LogisticService]
+  providers: [LogisticService, LogisticsDialogScreen, QuestionService]
 })
 export class LogisticModule {}

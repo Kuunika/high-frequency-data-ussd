@@ -12,9 +12,7 @@ export class LogisticController {
     constructor(private readonly logisticService: LogisticService) {}
 
     @Post()
-    ussdRequest(@Body() ussdDto: UssdDto): string{
-        const initialDialogScreen = new InitialDialogScreen()
-        const parsedUssdRequestText = parseTextFromUssd(ussdDto.text);
-        return initialDialogScreen.display(parsedUssdRequestText);
+    ussdRequest(@Body() ussdDto: UssdDto){
+        return this.logisticService.request(ussdDto);
     }
 }
