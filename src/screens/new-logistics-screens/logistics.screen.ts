@@ -26,7 +26,7 @@ export class LogisticsDialogScreen extends BoundedDialogScreen {
   ): string | Promise<string> {
     return ussdResponseMessage(
       UssdHeader.CON,
-      'Hello Banda, 1.Report Stock In Pharmacy\n2.Report Stock Point Of Care\n3.Report Faclity Wide Stock Out',
+      'Hello Banda,\n1.Report Stock In Pharmacy\n2.Report Stock Point Of Care\n3.Report Faclity Wide Stock Out',
     );
   }
 
