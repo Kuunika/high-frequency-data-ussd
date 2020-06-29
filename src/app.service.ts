@@ -16,7 +16,8 @@ export class AppService {
     try {
       const authenticatedUser = await this.authenticatePhoneNumberService.authenticatePhoneNumber(ussdDto.phoneNumber);
       const parsedUssdRequestText = parseTextFromUssd(ussdDto.text);
-      console.log(authenticatedUser);
+      console.log(parsedUssdRequestText);
+      //console.log(authenticatedUser);
       return this.initialDialogScreen.initialScreen({
         permittedUser: authenticatedUser,
         ussdTextInput: parsedUssdRequestText,

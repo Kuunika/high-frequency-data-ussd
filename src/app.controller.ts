@@ -10,6 +10,7 @@ export class AppController {
 
   @Post()
   highFrequencyDataCollectionUssdSession(@Body() ussdDto: UssdDto): Promise<string> {
+    console.log(ussdDto);
     return this.appService.highFrequencyDataCollectionUssdSession(ussdDto);
   }
 
