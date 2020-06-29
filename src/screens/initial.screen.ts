@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { AuthenticatePhoneNumberService } from 'src/common/helpers/authenticate-phone-number/authenticate-phone-number.service';
 import { UssdRequest } from 'src/common/interfaces/ussd-request.interface';
 import { LogisticsDialogScreen } from './new-logistics-screens/logistics.screen';
-import { genericUssdErrorMessage } from 'src/common/helpers/ussd-utilities';
+import { genericUssdErrorMessage, UssdHeader, ussdResponseMessage } from 'src/common/helpers/ussd-utilities';
 
 @Injectable()
 export class InitialScreen {
@@ -17,7 +17,7 @@ export class InitialScreen {
         .map((permission, index) => `${index + 1}: ${permission}`)
         .join('\n');
         console.log(initialDialog);
-      return initialDialog;
+      return ussdResponseMessage(UssdHeader.CON,initialDialog);
     }
     const selectedOption = ussdRequest.ussdTextInput.shift();
 
