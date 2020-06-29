@@ -15,6 +15,6 @@ export class AppController {
 
   @Get()
   placeholderEndpoint(){
-    return 'This is an example';
+    return 'Welcome to the High Frequency Data Collection USSD API';
   }
 }

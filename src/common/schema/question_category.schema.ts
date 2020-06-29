@@ -6,7 +6,7 @@ import { Document } from 'mongoose';
 })
 export class QuestionCategory extends Document {
     @Prop()
-    category: string;
+    Category: string;
 }
 
 export const QuestionCategorySchema = SchemaFactory.createForClass(QuestionCategory);

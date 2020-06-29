@@ -5,17 +5,20 @@ import { Document, Types } from 'mongoose';
   collection: 'collected_data'
 })
 export class CollectedData extends Document {
-    @Prop([raw({
-        question: { type: String },
-        answer: { type: Number }
-      })])
-    collected_data: Record<string, any>;
-
-    data_collection_for_date: Date;
-    
+    @Prop()
+    answer: string;
+    @Prop()
+    question: Types.ObjectId;
+    @Prop()
+    data_collection_for_date: string;
+    @Prop()
     facility: Types.ObjectId;
-
+    @Prop()
     question_category: Types.ObjectId;
+    @Prop()
+    createdAt:Date;
+    @Prop()
+    updatedAt: Date;
 }
 
 export const CollectedDataSchema = SchemaFactory.createForClass(CollectedData);

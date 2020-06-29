@@ -13,7 +13,14 @@ import { Facility, FacilitySchema } from './common/schema/facility.schema';
 import { SurveillanceModule } from './surveillance/surveillance.module';
 import { LogisticModule } from './logistic/logistic.module';
 import * as dotenv from 'dotenv';
-import { HardCodedStockReport } from './screens/logistic-screens/hard-coded-stock-report';
+import { VerifiedNumberModule } from './verified-number/verified-number.module';
+import { DataEntryPermission, DataEntryPermissionSchema } from './common/schema/data-entry-permission.schema';
+import { InitialScreen } from './screens/initial.screen';
+import { LogisticsDialogScreen } from './screens/new-logistics-screens/logistics.screen';
+import { CollectedData, CollectedDataSchema } from './common/schema/collected_data.schema';
+import { Question, QuestionSchema } from './common/schema/question.schema';
+import { QuestionCategory, QuestionCategorySchema } from './common/schema/question_category.schema';
+import { QuestionService } from './common/schema/question/question.service';
 
 dotenv.config();
 
@@ -21,16 +28,21 @@ dotenv.config();
   imports: [
     AggregateModule,
     MongooseModule.forRoot(
-      process.env.MONGODB,
+      process.env.MONGODBPROD,
     ),
     MongooseModule.forFeature([
       { name: PermittedUser.name, schema: PermittedUserSchema },
       { name: Facility.name, schema: FacilitySchema },
+      { name: DataEntryPermission.name, schema: DataEntryPermissionSchema },
+      { name: CollectedData.name, schema: CollectedDataSchema },
+      { name: Question.name, schema: QuestionSchema},
+      { name: QuestionCategory.name, schema: QuestionCategorySchema}
     ]),
     SurveillanceModule,
     LogisticModule,
+    VerifiedNumberModule,
   ],
   controllers: [AppController],
-  providers: [AppService, AuthenticatePhoneNumberService, PermittedUserService],
+  providers: [AppService, AuthenticatePhoneNumberService, QuestionService,PermittedUserService, InitialScreen, LogisticsDialogScreen],
 })
 export class AppModule {}

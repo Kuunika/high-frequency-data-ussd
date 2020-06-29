@@ -6,6 +6,6 @@ import { QuestionService } from '../common/schema/question/question.service';
 
 @Module({
   controllers: [LogisticController],
-  providers: [LogisticService, LogisticsDialogScreen, QuestionService]
+  providers: []
 })
 export class LogisticModule {}

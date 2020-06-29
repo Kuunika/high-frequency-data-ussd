@@ -16,6 +16,10 @@ export class PermittedUser extends Document{
 
     @Prop()
     facility: Types.ObjectId;
+
+    @Prop()
+    data_entry_permissions: Types.ObjectId[];
+
 }
 
 export const PermittedUserSchema = SchemaFactory.createForClass(PermittedUser);

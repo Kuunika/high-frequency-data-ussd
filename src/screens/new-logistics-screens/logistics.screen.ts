@@ -7,10 +7,17 @@ import {
   ussdResponseMessage,
 } from '../../common/helpers/ussd-utilities';
 import { Injectable } from '@nestjs/common';
-import { Question } from '../../common/interfaces/question.interface';
+import { IQuestion } from '../../common/interfaces/question.interface';
+import { QuestionService } from 'src/common/schema/question/question.service';
 
 @Injectable()
 export class LogisticsDialogScreen extends BoundedDialogScreen {
+
+
+  constructor(private questionService: QuestionService) {
+    super();
+  }
+
   createDialogOptions(): Map<string, UssdOption> {
     return new Map([
       ['initial', this.createInitialDialogScreen.bind(this)],
@@ -26,7 +33,7 @@ export class LogisticsDialogScreen extends BoundedDialogScreen {
   ): string | Promise<string> {
     return ussdResponseMessage(
       UssdHeader.CON,
-      'Hello Banda,\n1.Report Stock In Pharmacy\n2.Report Stock Point Of Care\n3.Report Faclity Wide Stock Out',
+      `Hello ${ussdRequest.permittedUser.firstName},\n1.Report Stock In Pharmacy\n2.Report Stock Point Of Care\n3.Report Faclity Wide Stock Out`,
     );
   }
 
@@ -45,39 +52,15 @@ export class LogisticsDialogScreen extends BoundedDialogScreen {
     return this.display(ussdRequest);
   }
 
-  private createInPharmacyStockReportDialogScreenOne(
+  private async createInPharmacyStockReportDialogScreenOne(
     ussdRequest: UssdRequest,
-  ): string | Promise<string> {
-    const firstScreenOptions: Question[] = [
-      {
-        questionNumber: 1,
-        question: 'Apron, Sleeved',
-        answer: '',
-        expectedValueType: '',
-      },
-      {
-        questionNumber: 2,
-        question: 'Hand for Coveralls',
-        answer: '0',
-        expectedValueType: '',
-      },
-      {
-        questionNumber: 3,
-        question: 'Gown, Protective',
-        answer: '0',
-        expectedValueType: '',
-      },
-      {
-        questionNumber: 4,
-        question: 'Surgical Face Mask',
-        answer: '0',
-        expectedValueType: '',
-      },
-    ];
+  ): Promise<string> {
+    const firstScreenOptions: IQuestion[] = await this.questionService.getAllQuestionsFromCategory('Logistics: In Pharmacy');
     console.log(ussdRequest.ussdTextInput, 'phar screen 1');
     //initial call
     if (ussdRequest.ussdTextInput.length === 0) {
       const options = firstScreenOptions
+        .filter(options => options.questionNumber <= 4)
         .map(message => `${message.questionNumber + '.' + message.question}\n`)
         .join('');
 
@@ -115,43 +98,12 @@ export class LogisticsDialogScreen extends BoundedDialogScreen {
     return this.createInvalidOptionSelectedDialogScreen(ussdRequest);
   }
 
-  private createInPharmacyStockReportDialogScreenTwo(ussdRequest: UssdRequest) {
-    const secondScreenOptions = [
-      {
-        questionNumber: 5,
-        question: 'Shoe Cover',
-        answer: '0',
-        expectedValueType: '',
-      },
-      {
-        questionNumber: 6,
-        question: 'Swab and Viral Transport Medium',
-        answer: '0',
-        expectedValueType: '',
-      },
-      {
-        questionNumber: 7,
-        question: 'Glove latex',
-        answer: '0',
-        expectedValueType: '',
-      },
-      {
-        questionNumber: 8,
-        question: 'Respirator (FFP3, FFP2, N95)',
-        answer: '0',
-        expectedValueType: '',
-      },
-
-      {
-        questionNumber: 9,
-        question: 'Comment',
-        answer: '0',
-        expectedValueType: '',
-      },
-    ];
+  private async createInPharmacyStockReportDialogScreenTwo(ussdRequest: UssdRequest) {
+    const secondScreenOptions = await this.questionService.getAllQuestionsFromCategory('Logistics: In Pharmacy');
     console.log(ussdRequest.ussdTextInput);
     if (ussdRequest.ussdTextInput.length === 0) {
       const options = secondScreenOptions
+        .filter(options => options.questionNumber > 4 && options.questionNumber <= 9)
         .map(message => `${message.questionNumber + '. ' + message.question}\n`)
         .join('');
 
@@ -187,7 +139,7 @@ export class LogisticsDialogScreen extends BoundedDialogScreen {
 
   private answerGivenQuestion(
     ussdRequest: UssdRequest,
-    question: Question,
+    question: IQuestion,
     ussdOption: UssdOption,
   ): string | Promise<string> {
     console.log(ussdRequest.ussdTextInput);
@@ -206,6 +158,7 @@ export class LogisticsDialogScreen extends BoundedDialogScreen {
     if (ussdRequest.ussdTextInput.length === 1) {
       const userAnswer = ussdRequest.ussdTextInput.shift();
       //Does the thing
+      this.questionService.enterUssdQuestionData(question,ussdRequest.permittedUser.facility,userAnswer);
       return ussdOption(ussdRequest);
     }
 
@@ -216,39 +169,15 @@ export class LogisticsDialogScreen extends BoundedDialogScreen {
     }
   }
 
-  private createPointOfCareStockReportOne(
+  private async createPointOfCareStockReportOne(
     ussdRequest: UssdRequest,
-  ): string | Promise<string> {
-    const firstScreenOptions: Question[] = [
-      {
-        questionNumber: 1,
-        question: 'Apron, Sleeved',
-        answer: '',
-        expectedValueType: '',
-      },
-      {
-        questionNumber: 2,
-        question: 'Hand for Coveralls',
-        answer: '0',
-        expectedValueType: '',
-      },
-      {
-        questionNumber: 3,
-        question: 'Gown, Protective',
-        answer: '0',
-        expectedValueType: '',
-      },
-      {
-        questionNumber: 4,
-        question: 'Surgical Face Mask',
-        answer: '0',
-        expectedValueType: '',
-      },
-    ];
+  ): Promise<string> {
+    const firstScreenOptions: IQuestion[] = await this.questionService.getAllQuestionsFromCategory('Logistics: Point of Care');
 
     //initial call
     if (ussdRequest.ussdTextInput.length === 0) {
       const options = firstScreenOptions
+        .filter(options => options.questionNumber <= 4)
         .map(message => `${message.questionNumber + '.' + message.question}\n`)
         .join('');
 
@@ -286,45 +215,14 @@ export class LogisticsDialogScreen extends BoundedDialogScreen {
     return this.createInvalidOptionSelectedDialogScreen(ussdRequest);
   }
 
-  private createPointOfCareStockReportTwo(
+  private async createPointOfCareStockReportTwo(
     ussdRequest: UssdRequest,
-  ): string | Promise<string> {
-    const secondScreenOptions = [
-      {
-        questionNumber: 5,
-        question: 'Shoe Cover',
-        answer: '0',
-        expectedValueType: '',
-      },
-      {
-        questionNumber: 6,
-        question: 'Swab and Viral Transport Medium',
-        answer: '0',
-        expectedValueType: '',
-      },
-      {
-        questionNumber: 7,
-        question: 'Glove latex',
-        answer: '0',
-        expectedValueType: '',
-      },
-      {
-        questionNumber: 8,
-        question: 'Respirator (FFP3, FFP2, N95)',
-        answer: '0',
-        expectedValueType: '',
-      },
-
-      {
-        questionNumber: 9,
-        question: 'Comment',
-        answer: '0',
-        expectedValueType: '',
-      },
-    ];
+  ): Promise<string> {
+    const secondScreenOptions = await this.questionService.getAllQuestionsFromCategory('Logistics: Point of Care');
     console.log(ussdRequest.ussdTextInput);
     if (ussdRequest.ussdTextInput.length === 0) {
       const options = secondScreenOptions
+        .filter(options => options.questionNumber > 4 && options.questionNumber <= 9)
         .map(message => `${message.questionNumber + '. ' + message.question}\n`)
         .join('');
 
@@ -358,37 +256,13 @@ export class LogisticsDialogScreen extends BoundedDialogScreen {
     return this.createInvalidOptionSelectedDialogScreen(ussdRequest);
   }
 
-  private createFacilityWideStockOutReportOne(ussdRequest: UssdRequest){
-    const firstScreenOptions: Question[] = [
-      {
-        questionNumber: 1,
-        question: 'Apron, Sleeved',
-        answer: '',
-        expectedValueType: '',
-      },
-      {
-        questionNumber: 2,
-        question: 'Hand for Coveralls',
-        answer: '0',
-        expectedValueType: '',
-      },
-      {
-        questionNumber: 3,
-        question: 'Gown, Protective',
-        answer: '0',
-        expectedValueType: '',
-      },
-      {
-        questionNumber: 4,
-        question: 'Surgical Face Mask',
-        answer: '0',
-        expectedValueType: '',
-      },
-    ];
+  private async createFacilityWideStockOutReportOne(ussdRequest: UssdRequest){
+    const firstScreenOptions: IQuestion[] = await this.questionService.getAllQuestionsFromCategory('Logistics: Facility-Wide Stock Out');
 
     //initial call
     if (ussdRequest.ussdTextInput.length === 0) {
       const options = firstScreenOptions
+        .filter(options => options.questionNumber <= 4)
         .map(message => `${message.questionNumber + '.' + message.question}\n`)
         .join('');
 
@@ -426,36 +300,12 @@ export class LogisticsDialogScreen extends BoundedDialogScreen {
     return this.createInvalidOptionSelectedDialogScreen(ussdRequest);
   }
 
-  private createFacilityWideStockOutReportTwo(ussdRequest: UssdRequest){
-    const secondScreenOptions = [
-      {
-        questionNumber: 5,
-        question: 'Shoe Cover',
-        answer: '0',
-        expectedValueType: '',
-      },
-      {
-        questionNumber: 6,
-        question: 'Swab and Viral Transport Medium',
-        answer: '0',
-        expectedValueType: '',
-      },
-      {
-        questionNumber: 7,
-        question: 'Glove latex',
-        answer: '0',
-        expectedValueType: '',
-      },
-      {
-        questionNumber: 8,
-        question: 'Respirator (FFP3, FFP2, N95)',
-        answer: '0',
-        expectedValueType: '',
-      },
-    ];
+  private async createFacilityWideStockOutReportTwo(ussdRequest: UssdRequest){
+    const secondScreenOptions = await this.questionService.getAllQuestionsFromCategory('Logistics: Facility-Wide Stock Out');
     console.log(ussdRequest.ussdTextInput);
     if (ussdRequest.ussdTextInput.length === 0) {
       const options = secondScreenOptions
+        .filter(options => options.questionNumber > 4 && options.questionNumber <= 8)
         .map(message => `${message.questionNumber + '. ' + message.question}\n`)
         .join('');
 
@@ -489,7 +339,7 @@ export class LogisticsDialogScreen extends BoundedDialogScreen {
     return this.createInvalidOptionSelectedDialogScreen(ussdRequest);
   }
 
-  private answerGivenStockOutQuestion(ussdRequest: UssdRequest, question: Question, ussdOption: UssdOption){
+  private answerGivenStockOutQuestion(ussdRequest: UssdRequest, question: IQuestion, ussdOption: UssdOption){
     //initial
     if (ussdRequest.ussdTextInput.length === 0) {
       return ussdResponseMessage(
@@ -500,7 +350,7 @@ export class LogisticsDialogScreen extends BoundedDialogScreen {
 
     //entry
     if (ussdRequest.ussdTextInput.length === 1) {
-      const userAnswer = ussdRequest.ussdTextInput.shift();
+      //const userAnswer = ussdRequest.ussdTextInput.shift();
       //Does the thing
       return ussdResponseMessage(
         UssdHeader.CON,
@@ -509,9 +359,10 @@ export class LogisticsDialogScreen extends BoundedDialogScreen {
     }
 
     if (ussdRequest.ussdTextInput.length === 2) {
-      ussdRequest.ussdTextInput.shift()
-      const userAnswer = ussdRequest.ussdTextInput.shift();
+      const userAnswerPharmacy = ussdRequest.ussdTextInput.shift()
+      const userAnswerPointOfCare = ussdRequest.ussdTextInput.shift();
       //Does the thing
+      this.questionService.enterUssdQuestionData(question, ussdRequest.permittedUser.facility, `Confirm at pharmacy ${userAnswerPharmacy} - Confimed at point of care ${userAnswerPointOfCare}`);
       return ussdOption(ussdRequest);
     }
 

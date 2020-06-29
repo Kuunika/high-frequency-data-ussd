@@ -1,6 +1,11 @@
-export interface Question {
+import { Types } from "mongoose";
+
+export interface IQuestion {
+    id: Types.ObjectId;
     question: string;
     questionNumber: number;
-    expectedValueType: string;
+    questionCategoryId: Types.ObjectId;
+    questionCategory: string;
+    acceptedValueType: string;
     answer: string;
 }

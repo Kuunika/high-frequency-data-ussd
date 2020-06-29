@@ -6,13 +6,10 @@ import { parseTextFromUssd } from 'src/common/helpers/ussd-utilities';
 
 @Controller('logistic')
 export class LogisticController {
-    /**
-     *
-     */
-    constructor(private readonly logisticService: LogisticService) {}
+
 
     @Post()
     ussdRequest(@Body() ussdDto: UssdDto){
-        return this.logisticService.request(ussdDto);
+        return ''
     }
 }

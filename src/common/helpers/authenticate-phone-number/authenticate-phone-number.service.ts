@@ -12,7 +12,7 @@ export class AuthenticatePhoneNumberService {
         const formattedPhoneNumber = phoneNumber.includes('+') ? phoneNumber: `+${phoneNumber}`;
         const permittedUser = await this.permittedUserService.getPermittedUserByPhoneNumber(formattedPhoneNumber);
         
-        if(permittedUser === null) throw new UnauthorizedPhoneNumberException(formattedPhoneNumber);
+        //if(permittedUser === null) throw new UnauthorizedPhoneNumberException(formattedPhoneNumber);
         
         return permittedUser;
     }

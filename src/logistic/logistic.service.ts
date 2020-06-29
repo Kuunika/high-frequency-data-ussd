@@ -20,13 +20,15 @@ export class LogisticService {
     private getUser(phoneNumber: string): IPermittedUser{
         return {
             facility: {
+                id: null,
                 facilityCode: '',
                 facilityName: '',
             },
             firstName: '',
             id: '',
             lastName: '',
-            phoneNumber
+            phoneNumber,
+            dataEntryPermissions:[]
         };
     }
 

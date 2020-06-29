@@ -12,7 +12,10 @@ export class Question extends Document {
     question_number: number;
 
     @Prop()
-    question_category: Types.ObjectId
+    question_category: Types.ObjectId;
+
+    @Prop()
+    accepted_value: string;
 }
 
 export const QuestionSchema = SchemaFactory.createForClass(Question);
