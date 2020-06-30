@@ -1,6 +1,7 @@
 import { Controller, Post, Body, Get } from '@nestjs/common';
 import { AppService } from './app.service';
-import { UssdDto } from './common/dtos/ussd.dto';
+import { UssdDto, AllSystemUssdDto } from './common/dtos/ussd.dto';
+import { convertDtoPayload } from './common/helpers/ussd-utilities';
 
 
 //TODO: Set Up Content-Type
@@ -9,7 +10,9 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Post()
-  highFrequencyDataCollectionUssdSession(@Body() ussdDto: UssdDto): Promise<string> {
+  highFrequencyDataCollectionUssdSession(@Body() allSystemsDto: AllSystemUssdDto): Promise<string> {
+    console.log(allSystemsDto);
+    const ussdDto = convertDtoPayload(allSystemsDto);
     console.log(ussdDto);
     return this.appService.highFrequencyDataCollectionUssdSession(ussdDto);
   }

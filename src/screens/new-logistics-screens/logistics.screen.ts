@@ -3,7 +3,6 @@ import { UssdOption } from '../../common/types/ussd-option.type';
 import { UssdRequest } from '../../common/interfaces/ussd-request.interface';
 import {
   UssdHeader,
-  genericUssdErrorMessage,
   ussdResponseMessage,
 } from '../../common/helpers/ussd-utilities';
 import { Injectable } from '@nestjs/common';
@@ -33,7 +32,7 @@ export class LogisticsDialogScreen extends BoundedDialogScreen {
   ): string | Promise<string> {
     return ussdResponseMessage(
       UssdHeader.CON,
-      `Hello ${ussdRequest.permittedUser.firstName},\n1.Report Stock In Pharmacy\n2.Report Stock Point Of Care\n3.Report Faclity Wide Stock Out`,
+      `Hello ${ussdRequest.permittedUser.firstName},\n1.Report Stock In Pharmacy\n2.Report Stock Point Of Care\n3.Report Facility Wide Stock Out`,
     );
   }
 
@@ -56,7 +55,6 @@ export class LogisticsDialogScreen extends BoundedDialogScreen {
     ussdRequest: UssdRequest,
   ): Promise<string> {
     const firstScreenOptions: IQuestion[] = await this.questionService.getAllQuestionsFromCategory('Logistics: In Pharmacy');
-    console.log(ussdRequest.ussdTextInput, 'phar screen 1');
     //initial call
     if (ussdRequest.ussdTextInput.length === 0) {
       const options = firstScreenOptions
@@ -362,7 +360,7 @@ export class LogisticsDialogScreen extends BoundedDialogScreen {
       const userAnswerPharmacy = ussdRequest.ussdTextInput.shift()
       const userAnswerPointOfCare = ussdRequest.ussdTextInput.shift();
       //Does the thing
-      this.questionService.enterUssdQuestionData(question, ussdRequest.permittedUser.facility, `Confirm at pharmacy ${userAnswerPharmacy} - Confimed at point of care ${userAnswerPointOfCare}`);
+      this.questionService.enterUssdQuestionData(question, ussdRequest.permittedUser.facility, `Confirm at pharmacy ${userAnswerPharmacy} - Confirmed at point of care ${userAnswerPointOfCare}`);
       return ussdOption(ussdRequest);
     }
 

@@ -1,3 +1,5 @@
+import { AllSystemUssdDto, UssdDto } from "../dtos/ussd.dto";
+
 export enum UssdHeader {
     END = 'END',
     CON = 'CON'
@@ -30,4 +32,18 @@ export function validUssdTextArray(ussdTextArray: string[]): boolean {
     if (ussdTextArrayContainsEmptyString) return false;
 
     return true;
+}
+
+export function convertDtoPayload(allSystemUssdDto: AllSystemUssdDto): UssdDto{
+    if(allSystemUssdDto.ServiceCode === '*929#'){
+        return {
+            phoneNumber: allSystemUssdDto.PhoneNumber,
+            serviceCode: allSystemUssdDto.ServiceCode,
+            sessionId: allSystemUssdDto.SessionId,
+            text: allSystemUssdDto.Text
+        };
+    }
+
+    const { phoneNumber, serviceCode, sessionId, text } = allSystemUssdDto;
+    return  { phoneNumber, serviceCode, sessionId, text };
 }
