@@ -178,6 +178,7 @@ export class LogisticsDialogScreen extends BoundedDialogScreen {
     if (ussdRequest.ussdTextInput.length === 0) {
       const options = firstScreenOptions
         .filter(options => options.questionNumber <= 4)
+        .sort((a,b) => a.questionNumber - b.questionNumber)
         .map(message => `${message.questionNumber + '.' + message.question}\n`)
         .join('');
 
@@ -223,6 +224,7 @@ export class LogisticsDialogScreen extends BoundedDialogScreen {
     if (ussdRequest.ussdTextInput.length === 0) {
       const options = secondScreenOptions
         .filter(options => options.questionNumber > 4 && options.questionNumber <= 9)
+        .sort((a,b) => a.questionNumber - b.questionNumber)
         .map(message => `${message.questionNumber + '. ' + message.question}\n`)
         .join('');
 
@@ -263,6 +265,7 @@ export class LogisticsDialogScreen extends BoundedDialogScreen {
     if (ussdRequest.ussdTextInput.length === 0) {
       const options = firstScreenOptions
         .filter(options => options.questionNumber <= 4)
+        .sort((a,b) => a.questionNumber - b.questionNumber)
         .map(message => `${message.questionNumber + '.' + message.question}\n`)
         .join('');
 
@@ -306,6 +309,7 @@ export class LogisticsDialogScreen extends BoundedDialogScreen {
     if (ussdRequest.ussdTextInput.length === 0) {
       const options = secondScreenOptions
         .filter(options => options.questionNumber > 4 && options.questionNumber <= 8)
+        .sort((a,b) => a.questionNumber - b.questionNumber)
         .map(message => `${message.questionNumber + '. ' + message.question + ':' + message.answer}\n`)
         .join('');
 
