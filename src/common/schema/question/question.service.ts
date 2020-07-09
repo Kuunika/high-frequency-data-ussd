@@ -8,6 +8,7 @@ import { IPermittedUser } from 'src/common/interfaces/permitted-user.interface';
 import { IFacility } from 'src/common/interfaces/facility.interface';
 import { IQuestion } from 'src/common/interfaces/question.interface';
 import { format } from 'date-fns';
+import { UssdRequest } from 'src/common/interfaces/ussd-request.interface';
 
 @Injectable()
 export class QuestionService {
@@ -18,7 +19,7 @@ export class QuestionService {
     @InjectModel(CollectedData.name) private collectedDataModel: Model<CollectedData>
   ) {}
 
-  async getAllQuestionsFromCategory(Category: string): Promise<IQuestion[]>{
+  async getAllQuestionsFromCategory(Category: string, ussdRequest: UssdRequest): Promise<IQuestion[]>{
     const questionCategory = await this.questionCategoryModel.findOne({Category}).exec();
     
     if(questionCategory === null) throw new Error('Category Not Found');
@@ -28,7 +29,13 @@ export class QuestionService {
 
     if(questions === null || questions.length === 0) throw new Error('No Questions found');
 
+    const today = format(new Date(), 'yyyy-MM-dd');
+    // eslint-disable-next-line @typescript-eslint/camelcase
+    const completedAnswer = await this.collectedDataModel.find({data_collection_for_date:today, facility: ussdRequest.permittedUser.facility.id}).exec();
+
     return questions.map(question => {
+        const answer = completedAnswer.find(completed => completed.question_category === question.question_category)?.answer;
+        console.log(answer);
         return {
             id: question._id,
             question: question.question,
@@ -36,7 +43,7 @@ export class QuestionService {
             acceptedValueType: question.accepted_value,
             questionCategoryId: questionCategory._id,
             questionCategory: questionCategory.Category,
-            answer: '',
+            answer: answer ? answer : '',
         }
     });
   }

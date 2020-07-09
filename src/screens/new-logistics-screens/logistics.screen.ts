@@ -54,11 +54,12 @@ export class LogisticsDialogScreen extends BoundedDialogScreen {
   private async createInPharmacyStockReportDialogScreenOne(
     ussdRequest: UssdRequest,
   ): Promise<string> {
-    const firstScreenOptions: IQuestion[] = await this.questionService.getAllQuestionsFromCategory('Logistics: In Pharmacy');
+    const firstScreenOptions: IQuestion[] = await this.questionService.getAllQuestionsFromCategory('Logistics: In Pharmacy', ussdRequest);
     //initial call
     if (ussdRequest.ussdTextInput.length === 0) {
       const options = firstScreenOptions
         .filter(options => options.questionNumber <= 4)
+        .sort((a,b) => a.questionNumber - b.questionNumber)
         .map(message => `${message.questionNumber + '.' + message.question}\n`)
         .join('');
 
@@ -97,11 +98,12 @@ export class LogisticsDialogScreen extends BoundedDialogScreen {
   }
 
   private async createInPharmacyStockReportDialogScreenTwo(ussdRequest: UssdRequest) {
-    const secondScreenOptions = await this.questionService.getAllQuestionsFromCategory('Logistics: In Pharmacy');
+    const secondScreenOptions = await this.questionService.getAllQuestionsFromCategory('Logistics: In Pharmacy', ussdRequest);
     console.log(ussdRequest.ussdTextInput);
     if (ussdRequest.ussdTextInput.length === 0) {
       const options = secondScreenOptions
         .filter(options => options.questionNumber > 4 && options.questionNumber <= 9)
+        .sort((a,b) => a.questionNumber - b.questionNumber)
         .map(message => `${message.questionNumber + '. ' + message.question}\n`)
         .join('');
 
@@ -170,7 +172,7 @@ export class LogisticsDialogScreen extends BoundedDialogScreen {
   private async createPointOfCareStockReportOne(
     ussdRequest: UssdRequest,
   ): Promise<string> {
-    const firstScreenOptions: IQuestion[] = await this.questionService.getAllQuestionsFromCategory('Logistics: Point of Care');
+    const firstScreenOptions: IQuestion[] = await this.questionService.getAllQuestionsFromCategory('Logistics: Point of Care', ussdRequest);
 
     //initial call
     if (ussdRequest.ussdTextInput.length === 0) {
@@ -216,7 +218,7 @@ export class LogisticsDialogScreen extends BoundedDialogScreen {
   private async createPointOfCareStockReportTwo(
     ussdRequest: UssdRequest,
   ): Promise<string> {
-    const secondScreenOptions = await this.questionService.getAllQuestionsFromCategory('Logistics: Point of Care');
+    const secondScreenOptions = await this.questionService.getAllQuestionsFromCategory('Logistics: Point of Care', ussdRequest);
     console.log(ussdRequest.ussdTextInput);
     if (ussdRequest.ussdTextInput.length === 0) {
       const options = secondScreenOptions
@@ -255,7 +257,7 @@ export class LogisticsDialogScreen extends BoundedDialogScreen {
   }
 
   private async createFacilityWideStockOutReportOne(ussdRequest: UssdRequest){
-    const firstScreenOptions: IQuestion[] = await this.questionService.getAllQuestionsFromCategory('Logistics: Facility-Wide Stock Out');
+    const firstScreenOptions: IQuestion[] = await this.questionService.getAllQuestionsFromCategory('Logistics: Facility-Wide Stock Out', ussdRequest);
 
     //initial call
     if (ussdRequest.ussdTextInput.length === 0) {
@@ -299,12 +301,12 @@ export class LogisticsDialogScreen extends BoundedDialogScreen {
   }
 
   private async createFacilityWideStockOutReportTwo(ussdRequest: UssdRequest){
-    const secondScreenOptions = await this.questionService.getAllQuestionsFromCategory('Logistics: Facility-Wide Stock Out');
+    const secondScreenOptions = await this.questionService.getAllQuestionsFromCategory('Logistics: Facility-Wide Stock Out', ussdRequest);
     console.log(ussdRequest.ussdTextInput);
     if (ussdRequest.ussdTextInput.length === 0) {
       const options = secondScreenOptions
         .filter(options => options.questionNumber > 4 && options.questionNumber <= 8)
-        .map(message => `${message.questionNumber + '. ' + message.question}\n`)
+        .map(message => `${message.questionNumber + '. ' + message.question + ':' + message.answer}\n`)
         .join('');
 
       return ussdResponseMessage(UssdHeader.CON, `Facility Wide\n${options}\nB to go Back`);

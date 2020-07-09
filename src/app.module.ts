@@ -28,7 +28,7 @@ dotenv.config();
   imports: [
     AggregateModule,
     MongooseModule.forRoot(
-      process.env.MONGODBPROD,
+      process.env.MONGODB,
     ),
     MongooseModule.forFeature([
       { name: PermittedUser.name, schema: PermittedUserSchema },
