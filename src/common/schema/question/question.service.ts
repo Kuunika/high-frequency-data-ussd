@@ -7,7 +7,7 @@ import { CollectedData } from '../collected_data.schema';
 import { IPermittedUser } from 'src/common/interfaces/permitted-user.interface';
 import { IFacility } from 'src/common/interfaces/facility.interface';
 import { IQuestion } from 'src/common/interfaces/question.interface';
-import { format } from 'date-fns';
+import { format,  } from 'date-fns';
 import { UssdRequest } from 'src/common/interfaces/ussd-request.interface';
 
 @Injectable()
@@ -51,6 +51,7 @@ export class QuestionService {
   async enterUssdQuestionData(question: IQuestion, facility: IFacility, answer: string){
       // check if data for that day has already been entered
       const today = format(new Date(), 'yyyy-MM-dd');
+
       // eslint-disable-next-line @typescript-eslint/camelcase
       const completedAnswer = await this.collectedDataModel.findOne({question: question.id, data_collection_for_date:today, facility: facility.id}).exec();
       if(completedAnswer !== null){
