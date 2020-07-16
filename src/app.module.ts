@@ -24,11 +24,13 @@ import { QuestionService } from './common/schema/question/question.service';
 
 dotenv.config();
 
+const mongoUri = process.env.NODE_ENV === 'PRODUCTION' ? process.env.MONGODBPROD : process.env.MONGODB;
+
 @Module({
   imports: [
     AggregateModule,
     MongooseModule.forRoot(
-      process.env.MONGODBPROD,
+      mongoUri
     ),
     MongooseModule.forFeature([
       { name: PermittedUser.name, schema: PermittedUserSchema },

@@ -60,7 +60,7 @@ export class LogisticsDialogScreen extends BoundedDialogScreen {
       const options = firstScreenOptions
         .filter(options => options.questionNumber <= 4)
         .sort((a,b) => a.questionNumber - b.questionNumber)
-        .map(message => `${message.questionNumber + '.' + message.question}\n`)
+        .map(message => `${message.questionNumber + '.' + message.question + ':' + message.answer}\n`)
         .join('');
 
       return ussdResponseMessage(
@@ -104,7 +104,7 @@ export class LogisticsDialogScreen extends BoundedDialogScreen {
       const options = secondScreenOptions
         .filter(options => options.questionNumber > 4 && options.questionNumber <= 9)
         .sort((a,b) => a.questionNumber - b.questionNumber)
-        .map(message => `${message.questionNumber + '. ' + message.question}\n`)
+        .map(message => `${message.questionNumber + '. ' + message.question + ':' + message.answer}\n`)
         .join('');
 
       return ussdResponseMessage(UssdHeader.CON, `Pharmacy\n${options}\nB to go Back`);
@@ -142,7 +142,6 @@ export class LogisticsDialogScreen extends BoundedDialogScreen {
     question: IQuestion,
     ussdOption: UssdOption,
   ): string | Promise<string> {
-    console.log(ussdRequest.ussdTextInput);
     //initial
     if (ussdRequest.ussdTextInput.length === 0) {
       if (question.question === 'Comment') {

@@ -11,9 +11,7 @@ export class AppController {
 
   @Post()
   highFrequencyDataCollectionUssdSession(@Body() allSystemsDto: AllSystemUssdDto): Promise<string> {
-    console.log(allSystemsDto);
     const ussdDto = convertDtoPayload(allSystemsDto);
-    console.log(ussdDto);
     return this.appService.highFrequencyDataCollectionUssdSession(ussdDto);
   }
 
