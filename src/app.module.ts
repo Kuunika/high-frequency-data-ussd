@@ -10,8 +10,6 @@ import {
   PermittedUserSchema,
 } from './common/schema/permitted_user.schema';
 import { Facility, FacilitySchema } from './common/schema/facility.schema';
-import { SurveillanceModule } from './surveillance/surveillance.module';
-import { LogisticModule } from './logistic/logistic.module';
 import * as dotenv from 'dotenv';
 import { VerifiedNumberModule } from './verified-number/verified-number.module';
 import { DataEntryPermission, DataEntryPermissionSchema } from './common/schema/data-entry-permission.schema';
@@ -51,8 +49,6 @@ const mongoUri = process.env.NODE_ENV === 'PRODUCTION' ? process.env.MONGODBPROD
       { name: Question.name, schema: QuestionSchema},
       { name: QuestionCategory.name, schema: QuestionCategorySchema}
     ]),
-    SurveillanceModule,
-    LogisticModule,
     VerifiedNumberModule,
   ],
   controllers: [AppController],
