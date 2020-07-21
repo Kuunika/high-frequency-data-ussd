@@ -10,12 +10,16 @@ export class VerifiedNumberController {
     @Get(':phoneNumber')
     async validateNumber(@Param('phoneNumber') phoneNumber: string): Promise<{access: boolean}>{
         
-        const user = await this.authenticatePhoneNumberService.authenticatePhoneNumber(phoneNumber);
-        
-        if(user !== null) return {access: true};
-        
-        return {
-            access: false
+        try {
+            const user = await this.authenticatePhoneNumberService.authenticatePhoneNumber(phoneNumber);
+            if(user !== null) return {access: true};
+
+        } catch (error) {
+            return {
+                access: false
+            }
+
         }
+        
     }
 }

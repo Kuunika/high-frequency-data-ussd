@@ -10,7 +10,6 @@ export abstract class UnboundedDialogScreen extends BaseDialogScreen {
     setDialogScreenTexts(): void | Promise<void> {}
 
     display(ussdTextInput?: string[]){
-        console.log(ussdTextInput);
         
         // Returns error message string if dialogScreenText is eq to null
 
@@ -35,7 +34,6 @@ export abstract class UnboundedDialogScreen extends BaseDialogScreen {
         // TODO: need to add all of the correct answers in the array on each request
         this.answers = [];
         this.answers.push(...ussdTextInput);
-        console.log(this.answers);
 
         if(this.answers.length >= this.dialogScreenTexts.length) return this.displayPostScreen();
 
@@ -47,7 +45,6 @@ export abstract class UnboundedDialogScreen extends BaseDialogScreen {
         //TODO: Warning this will include all of the answer including those who have gone over all answers
         this.setPostScreen();
         // TODO: Throw exception when post screen is not set.
-        console.log(this.postScreen);
         return this.postScreen;
     }
 

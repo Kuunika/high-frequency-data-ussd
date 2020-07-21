@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Inject, UnauthorizedException } from '@nestjs/common';
 import { AuthenticatePhoneNumberService } from './common/helpers/authenticate-phone-number/authenticate-phone-number.service';
 import { UssdDto } from './common/dtos/ussd.dto';
 import { IPermittedUser } from './common/interfaces/permitted-user.interface';
@@ -14,7 +14,7 @@ export class AppService {
   async highFrequencyDataCollectionUssdSession(ussdDto: UssdDto): Promise<string>{
 
     try {
-      const authenticatedUser = await this.authenticatePhoneNumberService.authenticatePhoneNumber(ussdDto.phoneNumber);
+      const authenticatedUser = await this.authenticatePhoneNumberService.authenticatePhoneNumber(ussdDto.phoneNumber, false);
       const parsedUssdRequestText = parseTextFromUssd(ussdDto.text);
       
       return this.initialDialogScreen.initialScreen({
@@ -23,9 +23,8 @@ export class AppService {
       });
 
     } catch (error) {
-
-      console.warn(`${Date()}: UNAUTHORIZED request made from phone number:${ussdDto.phoneNumber}`);
-      return error.message;
+      
+      throw new UnauthorizedException('Unauthorized Number');
 
     }
   }

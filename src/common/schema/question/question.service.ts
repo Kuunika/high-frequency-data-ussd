@@ -32,11 +32,10 @@ export class QuestionService {
     const today = format(lastDayOfWeek(new Date()), 'yyyy-MM-dd');
     // eslint-disable-next-line @typescript-eslint/camelcase
     const completedAnswer = await this.collectedDataModel.find({data_collection_for_date:today, facility: ussdRequest.permittedUser.facility.id}).exec();
-    console.log(completedAnswer);
 
     return questions.map(question => {
         const answer = completedAnswer.find(completed => completed.question.toHexString() === question._id.toHexString())?.answer;
-        console.log(question.question_category);
+
         return {
             id: question._id,
             question: question.question,

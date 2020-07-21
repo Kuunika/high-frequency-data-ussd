@@ -21,6 +21,9 @@ import { CollectedData, CollectedDataSchema } from './common/schema/collected_da
 import { Question, QuestionSchema } from './common/schema/question.schema';
 import { QuestionCategory, QuestionCategorySchema } from './common/schema/question_category.schema';
 import { QuestionService } from './common/schema/question/question.service';
+import { WinstonModule } from 'nest-winston';
+import * as winston from 'winston';
+import * as path from 'path';
 
 dotenv.config();
 
@@ -29,6 +32,14 @@ const mongoUri = process.env.NODE_ENV === 'PRODUCTION' ? process.env.MONGODBPROD
 @Module({
   imports: [
     AggregateModule,
+    WinstonModule.forRoot({
+      format: winston.format.json(),
+      transports:[
+        new winston.transports.File({ dirname: path.join(__dirname, './log/error/'), filename: 'error.log', level: 'error' }),
+        new winston.transports.File({ dirname: path.join(__dirname, './log/info/'), filename: 'info.log', level: 'info' }),
+        new winston.transports.File({ dirname: path.join(__dirname, './log/warn/'), filename: 'warn.log', level: 'warn' }),
+      ]
+    }),
     MongooseModule.forRoot(
       mongoUri
     ),

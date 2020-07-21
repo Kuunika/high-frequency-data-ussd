@@ -81,9 +81,9 @@ export class HardCodedStockReport {
     }
 
     createScreen(ussdText: string[]){
-        console.log(ussdText);
+
         const ussdTextInput = this.truncateUssdStringsBasedOnB(ussdText);
-        console.log(ussdTextInput);
+
 
         if(ussdTextInput.length === 0) return this.firstScreenMessage;
 
@@ -98,8 +98,6 @@ export class HardCodedStockReport {
         const allOptions = [...this.firstScreenOptions,...this.secondScreenOptions];
         
         if(ussdTextInput.length >= 2 && _.nth(ussdTextInput, -2) !== 'B' && _.nth(ussdTextInput, -2) !== 'N'){
-            console.log('Value Saved');
-            //ussdTextInput.push("B");
 
             const optionNumber = _.nth(ussdTextInput,-1);
 

@@ -25,8 +25,6 @@ const screenText1 = `Enter Information for: ${screenOptions1.map(option => optio
 function createNavigationScreen(ussdString: string[]){
     
     if(ussdString.length === 0) {
-        
-        console.log(screenOptions1);
         return '';
     }
 
@@ -35,8 +33,6 @@ function createNavigationScreen(ussdString: string[]){
     const selectedOption = screenOptions1.find(option => option.optionNumber === selectedOptionNumber);
 
     if(selectedOption) return createDataEntryScreen(ussdString, selectedOption);
-
-    console.log('Invalid Option');
     return '';
     
 }

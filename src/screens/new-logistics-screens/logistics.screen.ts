@@ -99,7 +99,7 @@ export class LogisticsDialogScreen extends BoundedDialogScreen {
 
   private async createInPharmacyStockReportDialogScreenTwo(ussdRequest: UssdRequest) {
     const secondScreenOptions = await this.questionService.getAllQuestionsFromCategory('Logistics: In Pharmacy', ussdRequest);
-    console.log(ussdRequest.ussdTextInput);
+
     if (ussdRequest.ussdTextInput.length === 0) {
       const options = secondScreenOptions
         .filter(options => options.questionNumber > 4 && options.questionNumber <= 9)
@@ -219,7 +219,7 @@ export class LogisticsDialogScreen extends BoundedDialogScreen {
     ussdRequest: UssdRequest,
   ): Promise<string> {
     const secondScreenOptions = await this.questionService.getAllQuestionsFromCategory('Logistics: Point of Care', ussdRequest);
-    console.log(ussdRequest.ussdTextInput);
+
     if (ussdRequest.ussdTextInput.length === 0) {
       const options = secondScreenOptions
         .filter(options => options.questionNumber > 4 && options.questionNumber <= 9)
@@ -304,7 +304,7 @@ export class LogisticsDialogScreen extends BoundedDialogScreen {
 
   private async createFacilityWideStockOutReportTwo(ussdRequest: UssdRequest){
     const secondScreenOptions = await this.questionService.getAllQuestionsFromCategory('Logistics: Facility-Wide Stock Out', ussdRequest);
-    console.log(ussdRequest.ussdTextInput);
+
     if (ussdRequest.ussdTextInput.length === 0) {
       const options = secondScreenOptions
         .filter(options => options.questionNumber > 4 && options.questionNumber <= 8)
