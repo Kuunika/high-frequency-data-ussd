@@ -14,7 +14,7 @@ import * as dotenv from 'dotenv';
 import { VerifiedNumberModule } from './verified-number/verified-number.module';
 import { DataEntryPermission, DataEntryPermissionSchema } from './common/schema/data-entry-permission.schema';
 import { InitialScreen } from './screens/initial.screen';
-import { LogisticsDialogScreen } from './screens/new-logistics-screens/logistics.screen';
+import { LogisticsDialogScreen } from './screens/logistics-screens/logistics.screen';
 import { CollectedData, CollectedDataSchema } from './common/schema/collected_data.schema';
 import { Question, QuestionSchema } from './common/schema/question.schema';
 import { QuestionCategory, QuestionCategorySchema } from './common/schema/question_category.schema';

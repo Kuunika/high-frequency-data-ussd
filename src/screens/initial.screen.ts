@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { AuthenticatePhoneNumberService } from 'src/common/helpers/authenticate-phone-number/authenticate-phone-number.service';
 import { UssdRequest } from 'src/common/interfaces/ussd-request.interface';
-import { LogisticsDialogScreen } from './new-logistics-screens/logistics.screen';
+import { LogisticsDialogScreen } from './logistics-screens/logistics.screen';
 import { genericUssdErrorMessage, UssdHeader, ussdResponseMessage } from 'src/common/helpers/ussd-utilities';
 
 @Injectable()
