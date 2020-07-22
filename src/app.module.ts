@@ -14,7 +14,6 @@ import * as dotenv from 'dotenv';
 import { VerifiedNumberModule } from './verified-number/verified-number.module';
 import { DataEntryPermission, DataEntryPermissionSchema } from './common/schema/data-entry-permission.schema';
 import { InitialScreen } from './screens/initial.screen';
-import { LogisticsDialogScreen } from './screens/logistics-screens/logistics.screen';
 import { CollectedData, CollectedDataSchema } from './common/schema/collected_data.schema';
 import { Question, QuestionSchema } from './common/schema/question.schema';
 import { QuestionCategory, QuestionCategorySchema } from './common/schema/question_category.schema';
@@ -22,6 +21,12 @@ import { QuestionService } from './common/schema/question/question.service';
 import { WinstonModule } from 'nest-winston';
 import * as winston from 'winston';
 import * as path from 'path';
+import { InvalidOptionSelectedScreen } from './screens/logistics-screens/invalid-option-selected.screen';
+import { LogisticsInitialScreen } from './screens/logistics-screens/logistics-initial.screen';
+import { ProductsListScreen } from './screens/logistics-screens/products-list.screen';
+import { ReportCurrentStockLevel } from './screens/logistics-screens/report-current-stock-level.screen';
+import { ReportStockOutScreen } from './screens/logistics-screens/report-stock-out.screen';
+import { QuestionCategoryService } from './common/schema/question-category/question-category.service';
 
 dotenv.config();
 
@@ -52,6 +57,9 @@ const mongoUri = process.env.NODE_ENV === 'PRODUCTION' ? process.env.MONGODBPROD
     VerifiedNumberModule,
   ],
   controllers: [AppController],
-  providers: [AppService, AuthenticatePhoneNumberService, QuestionService,PermittedUserService, InitialScreen, LogisticsDialogScreen],
+  providers: [AppService, AuthenticatePhoneNumberService, QuestionService, QuestionCategoryService,
+              PermittedUserService, InitialScreen, InvalidOptionSelectedScreen,
+              LogisticsInitialScreen, ProductsListScreen, ReportCurrentStockLevel,
+              ReportStockOutScreen],
 })
 export class AppModule {}

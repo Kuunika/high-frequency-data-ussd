@@ -19,8 +19,8 @@ export class QuestionService {
     @InjectModel(CollectedData.name) private collectedDataModel: Model<CollectedData>
   ) {}
 
-  async getAllQuestionsFromCategory(Category: string, ussdRequest: UssdRequest): Promise<IQuestion[]>{
-    const questionCategory = await this.questionCategoryModel.findOne({Category}).exec();
+  async getAllQuestionsFromCategory(categoryID: string, ussdRequest: UssdRequest): Promise<IQuestion[]>{
+    const questionCategory = await this.questionCategoryModel.findById(categoryID).exec();
     
     if(questionCategory === null) throw new Error('Category Not Found');
 

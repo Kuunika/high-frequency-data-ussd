@@ -1,14 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { AuthenticatePhoneNumberService } from 'src/common/helpers/authenticate-phone-number/authenticate-phone-number.service';
 import { UssdRequest } from 'src/common/interfaces/ussd-request.interface';
-import { LogisticsDialogScreen } from './logistics-screens/logistics.screen';
 import { genericUssdErrorMessage, UssdHeader, ussdResponseMessage } from 'src/common/helpers/ussd-utilities';
+import { LogisticsInitialScreen } from './logistics-screens/logistics-initial.screen';
 
 @Injectable()
 export class InitialScreen {
   constructor(
-    private authenticationService: AuthenticatePhoneNumberService,
-    private logisticDialogScreen: LogisticsDialogScreen,
+    private logisticsInitialScreen: LogisticsInitialScreen,
   ) {}
 
   async initialScreen(ussdRequest: UssdRequest): Promise<string> {
@@ -22,7 +20,7 @@ export class InitialScreen {
     const selectedOption = ussdRequest.ussdTextInput.shift();
 
     if(selectedOption === '1'){
-        return this.logisticDialogScreen.display(ussdRequest);
+        return this.logisticsInitialScreen.display(ussdRequest);
     }
     
 
