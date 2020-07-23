@@ -43,7 +43,7 @@ export class ProductsListScreen {
                 return this.display(ussdRequest, selectedQuestionCategory, 2);
             }
 
-            if (userSelectedOption === 'B' || userSelectedOption === 'b' || pageNumber === 2) {
+            if (userSelectedOption === 'B' || userSelectedOption === 'b' && pageNumber === 2) {
 
                 return this.display(ussdRequest, selectedQuestionCategory, 1);
             }
