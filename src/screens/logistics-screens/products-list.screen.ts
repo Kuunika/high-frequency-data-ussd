@@ -24,7 +24,6 @@ export class ProductsListScreen {
                 ) {}
 
     async display(ussdRequest: UssdRequest, selectedQuestionCategory: string, pageNumber = 1): Promise<string>{
-        console.log(selectedQuestionCategory);
         
         const userSelectedOption = ussdRequest.ussdTextInput.shift();
 
@@ -37,7 +36,7 @@ export class ProductsListScreen {
         }
 
         const questions = await this.getQuestions(questionCategory, ussdRequest, pageNumber);
-
+        
         if(userSelectedOption){
 
             if(userSelectedOption === 'N' || userSelectedOption === 'n' && pageNumber === 1){
@@ -45,9 +44,10 @@ export class ProductsListScreen {
             }
 
             if (userSelectedOption === 'B' || userSelectedOption === 'b' || pageNumber === 2) {
+
                 return this.display(ussdRequest, selectedQuestionCategory, 1);
             }
-
+            
             const selectedQuestion = questions.find(
                 options => options.questionNumber === Number.parseInt(userSelectedOption),
             );
@@ -63,8 +63,11 @@ export class ProductsListScreen {
             return this.reportCurrentStockLevel.display(ussdRequest, selectedQuestion, this);
 
         }
+        
 
-        return ussdResponseMessage(UssdHeader.CON, this.createUssdScreenText(questions, this.getCategoryName(questionCategory), pageNumber));
+        const screenText = this.createUssdScreenText(questions, this.getCategoryName(questionCategory), pageNumber);
+        
+        return ussdResponseMessage(UssdHeader.CON, screenText);
     }
 
 
@@ -75,7 +78,7 @@ export class ProductsListScreen {
 
     private async getQuestions(questionCategory: QuestionCategory,ussdRequest: UssdRequest, pageNumber: number): Promise<IQuestion[]>{
         const allQuestions = await this.questionService.getAllQuestionsFromCategory(questionCategory._id, ussdRequest);
-        return _.chunk(allQuestions,4)[pageNumber - 1];
+        return _.chunk(allQuestions.sort((a,b) => a.questionNumber - b.questionNumber),5)[pageNumber - 1];
     }
 
 

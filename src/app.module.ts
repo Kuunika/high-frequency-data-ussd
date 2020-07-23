@@ -27,6 +27,7 @@ import { ProductsListScreen } from './screens/logistics-screens/products-list.sc
 import { ReportCurrentStockLevel } from './screens/logistics-screens/report-current-stock-level.screen';
 import { ReportStockOutScreen } from './screens/logistics-screens/report-stock-out.screen';
 import { QuestionCategoryService } from './common/schema/question-category/question-category.service';
+import { BackDateEntryScreen } from './screens/logistics-screens/back-date-entry.screen';
 
 dotenv.config();
 
@@ -60,6 +61,6 @@ const mongoUri = process.env.NODE_ENV === 'PRODUCTION' ? process.env.MONGODBPROD
   providers: [AppService, AuthenticatePhoneNumberService, QuestionService, QuestionCategoryService,
               PermittedUserService, InitialScreen, InvalidOptionSelectedScreen,
               LogisticsInitialScreen, ProductsListScreen, ReportCurrentStockLevel,
-              ReportStockOutScreen],
+              ReportStockOutScreen, BackDateEntryScreen],
 })
 export class AppModule {}

@@ -24,6 +24,6 @@ export class LogisticsInitialScreen{
         const selectedOption = +ussdRequest.ussdTextInput.shift();
         
 
-        return this.productsListScreen.display(ussdRequest, questionCategories[selectedOption - 1]);
+        return this.productsListScreen.display(ussdRequest, questionCategories[selectedOption - 1], 1);
     }
 }

@@ -19,6 +19,7 @@ export class AppService {
       return this.initialDialogScreen.initialScreen({
         permittedUser: authenticatedUser,
         ussdTextInput: parsedUssdRequestText,
+        dataEntryDate: null,
       });
 
     } catch (error) {

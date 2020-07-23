@@ -30,7 +30,7 @@ export class ReportStockOutScreen {
       if (ussdRequest.ussdTextInput.length === 2) {
         const userAnswerPharmacy = ussdRequest.ussdTextInput.shift()
         const userAnswerPointOfCare = ussdRequest.ussdTextInput.shift();
-        this.questionService.enterUssdQuestionData(question, ussdRequest.permittedUser.facility, `Confirm at pharmacy ${userAnswerPharmacy} - Confirmed at point of care ${userAnswerPointOfCare}`);
+        this.questionService.enterUssdQuestionData(question, ussdRequest.permittedUser.facility, `Confirm at pharmacy ${userAnswerPharmacy} - Confirmed at point of care ${userAnswerPointOfCare}`, ussdRequest.dataEntryDate);
         
       }
   

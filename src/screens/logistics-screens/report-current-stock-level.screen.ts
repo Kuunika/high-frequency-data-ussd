@@ -23,7 +23,7 @@ export class ReportCurrentStockLevel{
 
         if (ussdRequest.ussdTextInput.length === 1) {
             const userAnswer = ussdRequest.ussdTextInput.shift();
-            this.questionService.enterUssdQuestionData(question,ussdRequest.permittedUser.facility,userAnswer);
+            this.questionService.enterUssdQuestionData(question,ussdRequest.permittedUser.facility,userAnswer, ussdRequest.dataEntryDate);
         }
 
         if (ussdRequest.ussdTextInput.length > 1) {

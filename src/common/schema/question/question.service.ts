@@ -7,7 +7,7 @@ import { CollectedData } from '../collected_data.schema';
 import { IPermittedUser } from 'src/common/interfaces/permitted-user.interface';
 import { IFacility } from 'src/common/interfaces/facility.interface';
 import { IQuestion } from 'src/common/interfaces/question.interface';
-import { format, lastDayOfWeek,  } from 'date-fns';
+import { format, lastDayOfWeek, subDays } from 'date-fns';
 import { UssdRequest } from 'src/common/interfaces/ussd-request.interface';
 
 @Injectable()
@@ -26,12 +26,15 @@ export class QuestionService {
 
     // eslint-disable-next-line @typescript-eslint/camelcase
     const questions = await this.questionModel.find({question_category: questionCategory._id}).exec();
+  
 
     if(questions === null || questions.length === 0) throw new Error('No Questions found');
 
-    const today = format(lastDayOfWeek(new Date()), 'yyyy-MM-dd');
+    const today = format(lastDayOfWeek(ussdRequest.dataEntryDate, {weekStartsOn:2}), 'yyyy-MM-dd');
     // eslint-disable-next-line @typescript-eslint/camelcase
     const completedAnswer = await this.collectedDataModel.find({data_collection_for_date:today, facility: ussdRequest.permittedUser.facility.id}).exec();
+    console.log(today);
+
 
     return questions.map(question => {
         const answer = completedAnswer.find(completed => completed.question.toHexString() === question._id.toHexString())?.answer;
@@ -48,9 +51,9 @@ export class QuestionService {
     });
   }
 
-  async enterUssdQuestionData(question: IQuestion, facility: IFacility, answer: string){
+  async enterUssdQuestionData(question: IQuestion, facility: IFacility, answer: string, dateOfEntry: Date){
       // check if data for that day has already been entered
-      const today = format(lastDayOfWeek(new Date()), 'yyyy-MM-dd');
+      const today = format(lastDayOfWeek(dateOfEntry ?? new Date(),{weekStartsOn:2}), 'yyyy-MM-dd');
 
       // eslint-disable-next-line @typescript-eslint/camelcase
       const completedAnswer = await this.collectedDataModel.findOne({question: question.id, data_collection_for_date:today, facility: facility.id}).exec();
@@ -73,6 +76,8 @@ export class QuestionService {
       newAnswer.createdAt = new Date();
       newAnswer.updatedAt = new Date();
       newAnswer.save();
+      console.log('Sample');
+      console.log(newAnswer);
 
       return true;
 
@@ -84,4 +89,23 @@ export class QuestionService {
       // otherwise add new answer
   }
 
+  async getBackDataEntryDates(facility: IFacility){
+    const thisWeek = format(lastDayOfWeek(new Date(2020,6,21),{weekStartsOn:2}),'yyyy-MM-dd');
+    const lastWeek = format(subDays(new Date(thisWeek), 7),'yyyy-MM-dd');
+
+    const lastWeeksAnswers = await this.collectedDataModel.find({facility: facility.id, data_collection_for_date: lastWeek}).exec();
+
+    if(lastWeeksAnswers.length < 24){
+      return {
+        thisWeek,
+        lastWeek
+      }
+    }
+
+    return {
+      thisWeek,
+      lastWeek: undefined
+    }
+
+  }
 }

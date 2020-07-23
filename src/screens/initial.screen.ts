@@ -2,11 +2,13 @@ import { Injectable } from '@nestjs/common';
 import { UssdRequest } from 'src/common/interfaces/ussd-request.interface';
 import { genericUssdErrorMessage, UssdHeader, ussdResponseMessage } from 'src/common/helpers/ussd-utilities';
 import { LogisticsInitialScreen } from './logistics-screens/logistics-initial.screen';
+import { BackDateEntryScreen } from './logistics-screens/back-date-entry.screen';
 
 @Injectable()
 export class InitialScreen {
   constructor(
-    private logisticsInitialScreen: LogisticsInitialScreen,
+    private backDataEntryScreen: BackDateEntryScreen
+
   ) {}
 
   async initialScreen(ussdRequest: UssdRequest): Promise<string> {
@@ -20,7 +22,7 @@ export class InitialScreen {
     const selectedOption = ussdRequest.ussdTextInput.shift();
 
     if(selectedOption === '1'){
-        return this.logisticsInitialScreen.display(ussdRequest);
+        return this.backDataEntryScreen.display(ussdRequest);
     }
     
 

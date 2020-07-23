@@ -5,6 +5,8 @@ export interface UssdDto {
     text: string;
 }
 
+/// ""
+
 export interface AllSystemUssdDto {
     sessionId: string;
     serviceCode: string;

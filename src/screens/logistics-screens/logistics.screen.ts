@@ -157,7 +157,7 @@ export class LogisticsDialogScreen extends BoundedDialogScreen {
     if (ussdRequest.ussdTextInput.length === 1) {
       const userAnswer = ussdRequest.ussdTextInput.shift();
       //Does the thing
-      this.questionService.enterUssdQuestionData(question,ussdRequest.permittedUser.facility,userAnswer);
+      this.questionService.enterUssdQuestionData(question,ussdRequest.permittedUser.facility,userAnswer, ussdRequest.dataEntryDate);
       return ussdOption(ussdRequest);
     }
 
@@ -365,7 +365,7 @@ export class LogisticsDialogScreen extends BoundedDialogScreen {
       const userAnswerPharmacy = ussdRequest.ussdTextInput.shift()
       const userAnswerPointOfCare = ussdRequest.ussdTextInput.shift();
       //Does the thing
-      this.questionService.enterUssdQuestionData(question, ussdRequest.permittedUser.facility, `Confirm at pharmacy ${userAnswerPharmacy} - Confirmed at point of care ${userAnswerPointOfCare}`);
+      this.questionService.enterUssdQuestionData(question, ussdRequest.permittedUser.facility, `Confirm at pharmacy ${userAnswerPharmacy} - Confirmed at point of care ${userAnswerPointOfCare}`, ussdRequest.dataEntryDate);
       return ussdOption(ussdRequest);
     }
 
