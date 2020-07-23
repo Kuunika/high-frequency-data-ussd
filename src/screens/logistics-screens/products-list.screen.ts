@@ -87,7 +87,12 @@ export class ProductsListScreen {
         
         const selectableQuestionsPageText = questions
             .sort((a,b) => a.questionNumber - b.questionNumber)
-            .map(message => `${message.questionNumber + '. ' + message.question + ':' + message.answer}\n`)
+            .map(message => {
+                if (message.question === 'Comment'){
+                    return `${message.questionNumber + '. ' + message.question + ':' + 'Added'}\n`;
+                }
+                return `${message.questionNumber + '. ' + message.question + ':' + message.answer}\n`
+            })
             .join('');
 
         return `${category}\n${selectableQuestionsPageText}\n${navigationOptionText}`;
