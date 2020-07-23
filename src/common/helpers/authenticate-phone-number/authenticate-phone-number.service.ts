@@ -1,6 +1,6 @@
 import { Injectable, Logger, Inject } from '@nestjs/common';
-import { PermittedUserService } from 'src/common/schema/permitted-user/permitted-user.service';
-import { UnauthorizedPhoneNumberException } from 'src/common/exceptions/unauthorized-phone-number.exception';
+import { PermittedUserService } from '../../../common/schema/permitted-user/permitted-user.service';
+import { UnauthorizedPhoneNumberException } from '../../../common/exceptions/unauthorized-phone-number.exception';
 import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
 
 @Injectable()

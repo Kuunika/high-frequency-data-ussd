@@ -1,8 +1,8 @@
 import { Injectable } from "@nestjs/common";
-import { QuestionService } from "src/common/schema/question/question.service";
-import { UssdRequest } from "src/common/interfaces/ussd-request.interface";
+import { QuestionService } from "../../common/schema/question/question.service";
+import { UssdRequest } from "../../common/interfaces/ussd-request.interface";
 import { LogisticsInitialScreen } from "./logistics-initial.screen";
-import { ussdResponseMessage, UssdHeader } from "src/common/helpers/ussd-utilities";
+import { ussdResponseMessage, UssdHeader } from "../../common/helpers/ussd-utilities";
 
 @Injectable()
 export class BackDateEntryScreen {

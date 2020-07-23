@@ -7,7 +7,7 @@ import {
 } from '../../common/helpers/ussd-utilities';
 import { Injectable } from '@nestjs/common';
 import { IQuestion } from '../../common/interfaces/question.interface';
-import { QuestionService } from 'src/common/schema/question/question.service';
+import { QuestionService } from '../../common/schema/question/question.service';
 
 @Injectable()
 export class LogisticsDialogScreen extends BoundedDialogScreen {

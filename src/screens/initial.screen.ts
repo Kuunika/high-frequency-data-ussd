@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { UssdRequest } from 'src/common/interfaces/ussd-request.interface';
-import { genericUssdErrorMessage, UssdHeader, ussdResponseMessage } from 'src/common/helpers/ussd-utilities';
+import { UssdRequest } from '../common/interfaces/ussd-request.interface';
+import { genericUssdErrorMessage, UssdHeader, ussdResponseMessage } from '../common/helpers/ussd-utilities';
 import { LogisticsInitialScreen } from './logistics-screens/logistics-initial.screen';
 import { BackDateEntryScreen } from './logistics-screens/back-date-entry.screen';
 

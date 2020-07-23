@@ -2,7 +2,7 @@ import { IQuestion } from "../../common/interfaces/question.interface";
 import { UssdRequest } from "../../common/interfaces/ussd-request.interface";
 import { UssdHeader, ussdResponseMessage } from "../../common/helpers/ussd-utilities";
 import { Injectable } from "@nestjs/common";
-import { QuestionService } from "src/common/schema/question/question.service";
+import { QuestionService } from "../../common/schema/question/question.service";
 import { ProductsListScreen } from "./products-list.screen";
 
 @Injectable()

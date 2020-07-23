@@ -1,6 +1,5 @@
 import { Controller, Get, Param } from '@nestjs/common';
-import { PermittedUserService } from 'src/common/schema/permitted-user/permitted-user.service';
-import { AuthenticatePhoneNumberService } from 'src/common/helpers/authenticate-phone-number/authenticate-phone-number.service';
+import { AuthenticatePhoneNumberService } from '../common/helpers/authenticate-phone-number/authenticate-phone-number.service';
 
 @Controller('authnumber')
 export class VerifiedNumberController {

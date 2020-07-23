@@ -1,8 +1,8 @@
 import { Injectable } from "@nestjs/common";
 import { UssdRequest } from "../../common/interfaces/ussd-request.interface";
 import { IQuestion } from "../../common/interfaces/question.interface";
-import { ussdResponseMessage, UssdHeader } from "src/common/helpers/ussd-utilities";
-import { QuestionService } from "src/common/schema/question/question.service";
+import { ussdResponseMessage, UssdHeader } from "../../common/helpers/ussd-utilities";
+import { QuestionService } from "../../common/schema/question/question.service";
 import { ProductsListScreen } from "./products-list.screen";
 
 @Injectable()

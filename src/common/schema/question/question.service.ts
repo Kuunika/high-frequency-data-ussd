@@ -4,11 +4,10 @@ import { QuestionCategory } from '../question_category.schema';
 import { Model } from 'mongoose';
 import { Question } from '../question.schema';
 import { CollectedData } from '../collected_data.schema';
-import { IPermittedUser } from 'src/common/interfaces/permitted-user.interface';
-import { IFacility } from 'src/common/interfaces/facility.interface';
-import { IQuestion } from 'src/common/interfaces/question.interface';
+import { IFacility } from '../../../common/interfaces/facility.interface';
+import { IQuestion } from '../../../common/interfaces/question.interface';
 import { format, lastDayOfWeek, subDays } from 'date-fns';
-import { UssdRequest } from 'src/common/interfaces/ussd-request.interface';
+import { UssdRequest } from '../../../common/interfaces/ussd-request.interface';
 
 @Injectable()
 export class QuestionService {
