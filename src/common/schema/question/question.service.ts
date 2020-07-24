@@ -50,6 +50,8 @@ export class QuestionService {
     });
   }
 
+  
+
   async enterUssdQuestionData(question: IQuestion, facility: IFacility, answer: string, dateOfEntry: Date){
       // check if data for that day has already been entered
       const today = format(lastDayOfWeek(dateOfEntry ?? new Date(),{weekStartsOn:2}), 'yyyy-MM-dd');
@@ -75,8 +77,6 @@ export class QuestionService {
       newAnswer.createdAt = new Date();
       newAnswer.updatedAt = new Date();
       newAnswer.save();
-      console.log('Sample');
-      console.log(newAnswer);
 
       return true;
 
@@ -88,13 +88,19 @@ export class QuestionService {
       // otherwise add new answer
   }
 
+
+  async reportStockOut(question: IQuestion, facility: IFacility, answer: string, dateOfEntry: Date){
+
+
+  }
+
   async getBackDataEntryDates(facility: IFacility){
     const thisWeek = format(lastDayOfWeek(new Date(2020,6,21),{weekStartsOn:2}),'yyyy-MM-dd');
     const lastWeek = format(subDays(new Date(thisWeek), 7),'yyyy-MM-dd');
 
     const lastWeeksAnswers = await this.collectedDataModel.find({facility: facility.id, data_collection_for_date: lastWeek}).exec();
 
-    if(lastWeeksAnswers.length < 24){
+    if(lastWeeksAnswers.length < 16){
       return {
         thisWeek,
         lastWeek

@@ -47,6 +47,10 @@ export class ProductsListScreen {
 
                 return this.display(ussdRequest, selectedQuestionCategory, 1);
             }
+
+            if(userSelectedOption === 'E' || userSelectedOption === 'e' || userSelectedOption === 'Exit' || userSelectedOption === 'exit'){
+                return ussdResponseMessage(UssdHeader.END, "Thank You");
+            }
             
             const selectedQuestion = questions.find(
                 options => options.questionNumber === Number.parseInt(userSelectedOption),
@@ -95,7 +99,7 @@ export class ProductsListScreen {
             })
             .join('');
 
-        return `${category}\n${selectableQuestionsPageText}\n${navigationOptionText}`;
+        return `${category}\n${selectableQuestionsPageText}\n${navigationOptionText}\nE to Exit`;
     }
     
 

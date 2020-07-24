@@ -3,7 +3,7 @@ import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppModule } from './../src/app.module';
 
-describe('VerifyNumberController (e2e)', () => {
+describe('AppController (e2e)', () => {
   let app: INestApplication;
 
   beforeEach(async () => {
@@ -15,17 +15,14 @@ describe('VerifyNumberController (e2e)', () => {
     await app.init();
   });
 
-  it('/authnumber/{phone number} (GET)', () => {
-    return request(app.getHttpServer())
-      .get('/authnumber/+265')
-      .expect(200)
-      .expect({access: true});
-  });
+  it('/ (GET)', () => {
+    const body = {
 
-  it('/authnumber/{phone number} (GET)', () => {
+    };
+
     return request(app.getHttpServer())
-      .get('/authnumber/+265')
-      .expect(200)
-      .expect({access: false});
+      .post('/')
+      .expect(201)
+      .expect('Welcome to the High Frequency Data Collection USSD API');
   });
 });
