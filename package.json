@@ -29,7 +29,7 @@
     "@types/lodash": "^4.14.155",
     "date-fns": "^2.14.0",
     "dotenv": "^8.2.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "mongoose": "^5.9.18",
     "nest-winston": "^1.3.6",
     "reflect-metadata": "^0.1.13",
