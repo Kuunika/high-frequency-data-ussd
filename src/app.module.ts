@@ -28,6 +28,7 @@ import { ReportCurrentStockLevel } from './screens/logistics-screens/report-curr
 import { ReportStockOutScreen } from './screens/logistics-screens/report-stock-out.screen';
 import { QuestionCategoryService } from './common/schema/question-category/question-category.service';
 import { BackDateEntryScreen } from './screens/logistics-screens/back-date-entry.screen';
+import { ArchivesModule } from './archives/archives.module';
 
 dotenv.config();
 
@@ -56,6 +57,7 @@ const mongoUri = process.env.NODE_ENV === 'PRODUCTION' ? process.env.MONGODBPROD
       { name: QuestionCategory.name, schema: QuestionCategorySchema}
     ]),
     VerifiedNumberModule,
+    ArchivesModule,
   ],
   controllers: [AppController],
   providers: [AppService, AuthenticatePhoneNumberService, QuestionService, QuestionCategoryService,
